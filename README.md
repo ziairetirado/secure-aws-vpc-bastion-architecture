@@ -1,30 +1,47 @@
 # Secure AWS VPC with Bastion Host and Private EC2
 
-This project demonstrates a secure, enterprise-style AWS network architecture using a custom VPC, public and private subnets, a bastion host, and a private EC2 instance accessible only through SSH hopping.
+This project demonstrates a secure, enterprise-style AWS network architecture using a **custom VPC**, **segmented subnets**, a **bastion host**, and a **private EC2 instance** that is accessible only through controlled SSH hopping.
 
-## 🔐 Architecture Overview
+All identifiers, IP addresses, and account-specific details have been intentionally sanitized for security purposes.
 
-- Custom VPC (`lab-vpc`)
-- Public subnet for Bastion Host
-- Private subnet for application EC2
-- No public internet access to private EC2
-- SSH access enforced through Bastion Host only
+---
 
-## 🧱 Components
+## Architecture Overview
 
-- **VPC**: Custom VPC with CIDR block (example: 10.0.0.0/16)
-- **Public Subnet**: Hosts Bastion EC2 with public IP
-- **Private Subnet**: Hosts private EC2 with no public IP
-- **Security Groups**:
-  - Bastion SG allows SSH from trusted IP
-  - Private EC2 SG allows SSH only from Bastion SG
-- **Access Method**: SSH hop (Laptop → Bastion → Private EC2)
+- Custom VPC (sanitized name)
+- Public subnet hosting a Bastion Host
+- Private subnet hosting an application EC2 instance
+- No direct public internet access to the private EC2
+- SSH access enforced exclusively through the Bastion Host
 
-## 🔁 SSH Flow
+---
+
+## Components
+
+- **VPC**  
+  Custom VPC with a private RFC1918 CIDR range (example: `10.0.0.0/16`)
+
+- **Public Subnet**  
+  Hosts the Bastion EC2 instance with controlled public access
+
+- **Private Subnet**  
+  Hosts a private EC2 instance with no public IP assigned
+
+- **Security Groups**  
+  - Bastion security group allows SSH only from a trusted source  
+  - Private EC2 security group allows SSH **only** from the Bastion security group
+
+- **Access Method**  
+  Multi-hop SSH access pattern:
+  - Laptop → Bastion Host → Private EC2
+
+---
+
+## SSH Flow
 
 ```text
-Laptop
-  ↓ SSH
+Client Machine
+     ↓ SSH
 Bastion Host (Public Subnet)
-  ↓ SSH
+     ↓ SSH
 Private EC2 (Private Subnet)
