@@ -5,7 +5,7 @@
 
 ## VPC
 - Name: lab-vpc
-- CIDR: 10.0.0.0/16
+- CIDR: 10.0.x.x <PRIVATE_EC2_PRIVATE_IP>
 
 ## Subnets
 ### Public Subnet
