@@ -1,0 +1,10 @@
+# ssh config example
+Host bastion
+  HostName <BASTION_PUBLIC_IP>
+  User ec2-user
+  IdentityFile ~/Downloads/<YOUR_KEY>.pem
+
+Host private-ec2
+  HostName <PRIVATE_EC2_PRIVATE_IP>
+  User ec2-user
+  ProxyJump bastion
